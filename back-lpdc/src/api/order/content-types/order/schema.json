@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "purchase_date": {
+      "type": "date",
+      "required": true
+    },
+    "article": {
+      "type": "text"
+    },
+    "payment_method": {
+      "type": "enumeration",
+      "enum": [
+        "Paypal",
+        "Paylib",
+        "Espèce",
+        "Virement bancaire"
+      ]
+    },
+    "payment_date": {
+      "type": "date"
+    },
+    "Amount": {
+      "type": "integer"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "orders"
+    }
+  }
+}

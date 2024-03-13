@@ -49,6 +49,12 @@
     },
     "relay_point": {
       "type": "text"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "client"
     }
   }
 }

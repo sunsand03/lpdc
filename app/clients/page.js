@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios  from 'axios';
 import Client from '../components/Client';
 import Menu from '../components/Menu';
+import { API_URL } from '@/config';
 
 const Clients = () => {
 
@@ -16,7 +17,7 @@ const Clients = () => {
      * récupère la base de donneées client
      */
     const fetchClients = () => {
-        axios.get("http://localhost:1337/api/clients")
+        axios.get(`${API_URL}/clients`)
         .then((response)=>{      
         setClients(response.data.data);
         setIsLoading(false);         

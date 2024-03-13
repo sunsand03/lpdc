@@ -362,47 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiClientClient extends Schema.CollectionType {
-  collectionName: 'clients';
-  info: {
-    singularName: 'client';
-    pluralName: 'clients';
-    displayName: 'client';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    lastname: Attribute.String & Attribute.Required;
-    firstname: Attribute.String & Attribute.Required;
-    phone: Attribute.String & Attribute.Required;
-    adress: Attribute.Text;
-    postal_code: Attribute.String;
-    city: Attribute.Text;
-    country: Attribute.Text;
-    email: Attribute.Email;
-    status: Attribute.Enumeration<['Particulier', 'Fournisseur']> &
-      Attribute.Required;
-    relay_point: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::client.client',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::client.client',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -829,6 +788,94 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiClientClient extends Schema.CollectionType {
+  collectionName: 'clients';
+  info: {
+    singularName: 'client';
+    pluralName: 'clients';
+    displayName: 'client';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    lastname: Attribute.String & Attribute.Required;
+    firstname: Attribute.String & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    adress: Attribute.Text;
+    postal_code: Attribute.String;
+    city: Attribute.Text;
+    country: Attribute.Text;
+    email: Attribute.Email;
+    status: Attribute.Enumeration<['Particulier', 'Fournisseur']> &
+      Attribute.Required;
+    relay_point: Attribute.Text;
+    orders: Attribute.Relation<
+      'api::client.client',
+      'oneToMany',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'Order';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    purchase_date: Attribute.Date & Attribute.Required;
+    article: Attribute.Text;
+    payment_method: Attribute.Enumeration<
+      ['Paypal', 'Paylib', 'Esp\u00E8ce', 'Virement bancaire']
+    >;
+    payment_date: Attribute.Date;
+    Amount: Attribute.Integer;
+    client: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'api::client.client'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -839,7 +886,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::client.client': ApiClientClient;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -848,6 +894,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::client.client': ApiClientClient;
+      'api::order.order': ApiOrderOrder;
     }
   }
 }
