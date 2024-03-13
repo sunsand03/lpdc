@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios  from 'axios';
 import Client from '../components/Client';
+import Menu from '../components/Menu';
 
 const Clients = () => {
 
@@ -36,6 +37,7 @@ const Clients = () => {
     
     return (
         <div>
+            <Menu/>
             <h1>Base de données clients</h1>
             <ul>
               {clients.map((client, index)=>(
