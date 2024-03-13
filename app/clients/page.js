@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react';
 import axios  from 'axios';
 import Client from '../components/Client';
 import Menu from '../components/Menu';
+import FormClient from '../components/forms/formClient';
+import style from '../assets/styles/clients.module.css'
 import { API_URL } from '@/config';
 
 const Clients = () => {
 
 
-    const [clients, setClients] = useState([]);
+    const [clients, setClients] = useState([]); // État pour gérer l'affichage de la bdd clients
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
-
+    
  
     /**
      * récupère la base de donneées client
@@ -47,6 +49,8 @@ const Clients = () => {
                 </li>
               ))}
             </ul>
+            <FormClient/> 
+               
         </div>
     );
 };
