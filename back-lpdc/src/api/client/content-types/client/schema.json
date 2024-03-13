@@ -4,7 +4,8 @@
   "info": {
     "singularName": "client",
     "pluralName": "clients",
-    "displayName": "client"
+    "displayName": "client",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -45,6 +46,9 @@
         "Fournisseur"
       ],
       "required": true
+    },
+    "relay_point": {
+      "type": "text"
     }
   }
 }

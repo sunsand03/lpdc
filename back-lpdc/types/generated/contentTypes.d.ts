@@ -368,6 +368,7 @@ export interface ApiClientClient extends Schema.CollectionType {
     singularName: 'client';
     pluralName: 'clients';
     displayName: 'client';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -383,6 +384,7 @@ export interface ApiClientClient extends Schema.CollectionType {
     email: Attribute.Email;
     status: Attribute.Enumeration<['Particulier', 'Fournisseur']> &
       Attribute.Required;
+    relay_point: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
