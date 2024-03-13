@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import axios  from 'axios';
+import Client from '../components/Client';
 
 const Clients = () => {
 
@@ -11,7 +12,7 @@ const Clients = () => {
 
  
     /**
-     * récupère les données de l'API
+     * récupère la base de donneées client
      */
     const fetchClients = () => {
         axios.get("http://localhost:1337/api/clients")
@@ -29,13 +30,18 @@ const Clients = () => {
         fetchClients();
     }, [])
 
+    if(isLoading) return <div>Chargement...</div>    
+    if(isError) return <div>Error fecthing data !</div>
+
     
     return (
         <div>
             <h1>Base de données clients</h1>
             <ul>
               {clients.map((client, index)=>(
-                <li key={index}>{client.attributes.lastname}</li>
+                <li key={index}>
+                    <Client client={client}/>
+                </li>
               ))}
             </ul>
         </div>
