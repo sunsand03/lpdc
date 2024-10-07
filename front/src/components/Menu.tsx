@@ -6,7 +6,7 @@ const Menu = () => {
             <Link href="/" >Accueil</Link>
             <Link href="/orders">Nos commandes</Link>
             <Link href="/clients">Nos clients</Link>
-            <Link href="/">Se déconnecter</Link>
+            {/* <Link href="/">Se déconnecter</Link> */}
         </div>
     )
 }
