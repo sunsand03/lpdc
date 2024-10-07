@@ -1,4 +1,5 @@
 "use client"
+import AddClient from "@/components/clients/AddClient";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -29,7 +30,7 @@ const Clients = () => {
             }
         }
         fetchClients();
-    }, [])
+    }, [clients])
 
     if(loading){
         return <div>Chargement des clients...</div>
@@ -40,6 +41,9 @@ const Clients = () => {
     return (
         <div className="p-4">
             <h2 className="font-bold text-center p-4">Nos clients</h2>
+            <div className="flex m-5 justify-end">
+                <AddClient />
+            </div>
             <table className="table-auto w-full border-collapse border border-orange-300">
                 <thead className="font-bold">
                     <td className="border border-orange-300 px-4 py-2">Nom</td>

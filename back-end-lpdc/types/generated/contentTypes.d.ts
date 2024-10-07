@@ -646,6 +646,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     code: Schema.Attribute.String;
     price: Schema.Attribute.Decimal;
     orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
+    name: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
