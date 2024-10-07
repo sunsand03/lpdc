@@ -53,7 +53,7 @@ const Orders = () => {
             <h2 className="font-bold text-center p-4">Nos commandes</h2>
             <table className="table-auto w-full border-collapse border border-orange-300">
                 <thead className="font-bold">
-                    <td className="border border-orange-300 px-4 py-2">Date d'achat</td>
+                    <td className="border border-orange-300 px-4 py-2">Date d&apos;achat</td>
                     <td className="border border-orange-300 px-4 py-2">Liste des articles</td>
                     <td className="border border-orange-300 px-4 py-2">Montant</td>
                     <td className="border border-orange-300 px-4 py-2">Client</td>

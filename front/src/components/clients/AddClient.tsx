@@ -17,7 +17,7 @@ const AddClient = () => {
         setShowForm(true);
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
 
         e.preventDefault();
         setLoading(true);
