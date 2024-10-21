@@ -1,4 +1,5 @@
 "use client"
+import AddOrder from "@/components/orders/AddOrder";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -43,15 +44,18 @@ const Orders = () => {
     }, [])
 
     if(loading){
-        return <div>Chargement des commandes...</div>
+        return <div className="p-10 text-center">Chargement des commandes...</div>
     }
 
    console.log(orders);
    
     return (
-        <div className="p-4">
+        <main className="p-4">
             <h2 className="font-bold text-center p-4">Nos commandes</h2>
-            <table className="table-auto w-full border-collapse border border-orange-300">
+            <div className="flex m-5 justify-end">
+                <AddOrder />
+            </div>
+            <table className="table-auto w-full border-collapse border border-orange-300 m-4">
                 <thead className="font-bold">
                     <td className="border border-orange-300 px-4 py-2">Date d&apos;achat</td>
                     <td className="border border-orange-300 px-4 py-2">Liste des articles</td>
@@ -75,14 +79,14 @@ const Orders = () => {
                         </td>  
                         <td className="border border-orange-300 px-4 py-2">{order.amount}€</td>
                         <td className="border border-orange-300 px-4 py-2">{order.client.firstname}</td>
-                        <td className="border border-orange-300 px-4 py-2">{order.payment_method.name}</td>
+                        {/* <td className="border border-orange-300 px-4 py-2">{order.payment_method.name}</td> */}
                         <td className="border border-orange-300 px-4 py-2">{order.date_payment}</td>
                        </tr>
                     ) )}
                 </tbody>
             </table>
            
-        </div>
+        </main>
     )
 }
 

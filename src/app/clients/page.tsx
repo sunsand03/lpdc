@@ -33,7 +33,7 @@ const Clients = () => {
     }, [clients])
 
     if(loading){
-        return <div>Chargement des clients...</div>
+        return <div className="p-10 text-center">Chargement des clients...</div>
     }
 
    console.log(clients);
