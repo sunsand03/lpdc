@@ -39,8 +39,11 @@ const AddOrder = () => {
                 data: {
                     dateOrder,
                     amount,
-                    clients: clientsList,
+                    clients: clients,
                     products: products.map(productId => ({ id: productId }))
+                    // products: {
+                    //     connect: products
+                    // }
                 },
             });
             
@@ -66,7 +69,7 @@ const AddOrder = () => {
         const fetchClients = async () => {
             try {
                 const response = await axios(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/clients?populate=*`);
-                console.log(response.data.data);
+                console.log("liste des clients", response.data.data);
                 setClientsList(response.data.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des clients", error)
@@ -81,7 +84,7 @@ const AddOrder = () => {
         const fetchProducts = async () => {
             try {
                 const response = await axios(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/products?populate=*`);
-                console.log(response.data.data);
+                console.log("liste des produits",response.data.data);
                 setProductsList(response.data.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des clients", error)
@@ -91,6 +94,14 @@ const AddOrder = () => {
         fetchProducts();
 
     }, [])
+
+    console.log({
+        dateOrder,
+        amount,
+        client: clients,
+        products: products
+    });
+    
     
 
     return (
