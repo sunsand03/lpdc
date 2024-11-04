@@ -32,6 +32,7 @@ const Orders = () => {
         const fetchOrders = async () => {
             try {
                const response = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/orders?populate=*`);
+               console.log('Response data:', response.data.data);
                setOrders(response.data.data)
                
             } catch (error) {
@@ -79,7 +80,7 @@ const Orders = () => {
                         </td>  
                         <td className="border border-orange-300 px-4 py-2">{order.amount}€</td>
                         <td className="border border-orange-300 px-4 py-2">{order.client.firstname}</td>
-                        {/* <td className="border border-orange-300 px-4 py-2">{order.payment_method.name}</td> */}
+                        <td className="border border-orange-300 px-4 py-2">{order.payment_method.name}</td>
                         <td className="border border-orange-300 px-4 py-2">{order.date_payment}</td>
                        </tr>
                     ) )}
