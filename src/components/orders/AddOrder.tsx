@@ -4,13 +4,25 @@ import { useEffect, useState } from "react";
 
 const AddOrder = () => {
 
-    const [dateOrder, setDateOrder]= useState('');
-    const [amount, setAmount]= useState('');
-    const [clients, setClients]= useState('');
-    const [products, setProducts]= useState<string[]>([]);
-    const [productsList, setProductsList] =  useState<any[]>([]);
-    const [loading, setLoading]= useState(false);
-    const [message, setMessage] = useState('');
+    interface Client {
+        id: string;
+        firstname: string;
+        lastname: string;
+    }
+
+    interface Product {
+        id: string;
+        name: string;
+    }
+
+    const [dateOrder, setDateOrder] = useState<string>('');
+    const [amount, setAmount] = useState<string>('');
+    const [clients, setClients] = useState<string>('');
+    const [clientsList, setClientsList] = useState<Client[]>([]); 
+    const [products, setProducts] = useState<string[]>([]);
+    const [productsList, setProductsList] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
     const [showForm, setShowForm] = useState(false);
 
     const handleClick = () => {
@@ -27,16 +39,17 @@ const AddOrder = () => {
                 data: {
                     dateOrder,
                     amount,
-                    clients: clients,
+                    clients: clientsList,
                     products: products.map(productId => ({ id: productId }))
                 },
             });
+            
             if (response.status === 201){
                 setMessage('Commande ajoutée avec succès !')
                 setLoading(true);
                 setDateOrder('');
                 setAmount('');
-                setClients('');
+                setClientsList([]);
                 setProducts([]);
                 setShowForm(false)
             }
@@ -54,7 +67,7 @@ const AddOrder = () => {
             try {
                 const response = await axios(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/clients?populate=*`);
                 console.log(response.data.data);
-                setClients(response.data.data);
+                setClientsList(response.data.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des clients", error)
             }
@@ -62,7 +75,7 @@ const AddOrder = () => {
 
         fetchClients();
 
-    }, [clients])
+    }, [])
 
     useEffect(()=>{
         const fetchProducts = async () => {
@@ -77,7 +90,7 @@ const AddOrder = () => {
 
         fetchProducts();
 
-    }, [products])
+    }, [])
     
 
     return (
@@ -113,7 +126,7 @@ const AddOrder = () => {
                             onChange={(e) => setClients(e.target.value)}
                         >
                             <option value="">Sélectionner un client</option>
-                            {clients.map((client: any) => (
+                            {clientsList.map((client: { id: string; firstname: string; lastname: string }) => (
                                 <option key={client.id} value={client.id}>{client.firstname} {client.lastname}</option>
                             ))}
                         </select>
@@ -127,7 +140,7 @@ const AddOrder = () => {
                                 <option value="">
                                     Sélectionner les produits
                                 </option>
-                                {productsList.map((product: any) => (
+                                {productsList.map((product: { id: string; name: string }) => (
                                     <option key={product.id} value={product.id}>{product.name}</option>
                                 ))}
                             </select>
@@ -136,7 +149,7 @@ const AddOrder = () => {
                         <p>Produits sélectionnés : </p>
                         <ul>
                             {products.map((productId) => {
-                                const selectedProduct = productsList.find((product: any) => product.id === productId);
+                                const selectedProduct = productsList.find((product: { id: string; name: string }) => product.id === productId);
                                 return selectedProduct ? (
                                     <li key={selectedProduct.id}>
                                         {selectedProduct.name}

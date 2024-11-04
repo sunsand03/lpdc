@@ -31,10 +31,12 @@ const Orders = () => {
     useEffect(()=>{
         const fetchOrders = async () => {
             try {
-               const response = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/orders?populate=*`);
-               console.log('Response data:', response.data.data);
-               setOrders(response.data.data)
-               
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/orders?populate=*`, {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+                    }
+                });
+                setOrders(response.data.data);
             } catch (error) {
                 console.error('Erreur lors de la récupération des commandes', error)
             } finally {
@@ -47,8 +49,6 @@ const Orders = () => {
     if(loading){
         return <div className="p-10 text-center">Chargement des commandes...</div>
     }
-
-   console.log(orders);
    
     return (
         <main className="p-4">
